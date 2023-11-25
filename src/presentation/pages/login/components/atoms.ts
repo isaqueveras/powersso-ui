@@ -7,8 +7,10 @@ export const loginState = atom({
     isFormInvalid: true,
     email: '',
     password: '',
+    code2fa: '',
     emailError: '',
     passwordError: '',
+    code2faError: '',
     messageError: ''
   }
 })

@@ -8,6 +8,7 @@ export namespace Authentication {
   export type Params = {
     email: string
     password: string
+    otp: string
   }
 
   export type Model = AccountModel & Err

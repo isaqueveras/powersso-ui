@@ -20,13 +20,14 @@ const LoginPage: React.FC<Props> = ({ validation, usecase }: Props) => {
   useEffect(() => resetLoginState(), [])
   useEffect(() => validate('email'), [state.email])
   useEffect(() => validate('password'), [state.password])
+  useEffect(() => validate('code2fa'), [state.code2fa])
 
   const history = useHistory()
   const validate = (field: string): void => {
-    const { email, password } = state
-    const formData = { email, password }
+    const { email, password, code2fa } = state
+    const formData = { email, password, code2fa }
     setState(old => ({ ...old, [`${field}Error`]: validation.validate(field, formData) }))
-    setState(old => ({ ...old, isFormInvalid: !!old.emailError || !!old.passwordError }))
+    setState(old => ({ ...old, isFormInvalid: !!old.emailError || !!old.passwordError || !!old.passwordError }))
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -34,7 +35,7 @@ const LoginPage: React.FC<Props> = ({ validation, usecase }: Props) => {
     try {
       if (state.isLoading || state.isFormInvalid) return
       setState(old => ({ ...old, isLoading: true }))
-      const account = await usecase.auth({ email: state.email, password: state.password })
+      const account = await usecase.auth({ email: state.email, password: state.password, otp: state.code2fa })
       setCurrentAccount(account)
       history.replace('/')
     } catch (error: any) {
@@ -58,6 +59,10 @@ const LoginPage: React.FC<Props> = ({ validation, usecase }: Props) => {
               </div>
               <div className="sm:col-span-6">
                 <Input type='password' name='password' placeholder='Password'/>
+              </div>
+
+              <div className="sm:col-span-6">
+                <Input type='text' name='code2fa' placeholder='Code OTP'/>
               </div>
             </div>
           </div>
