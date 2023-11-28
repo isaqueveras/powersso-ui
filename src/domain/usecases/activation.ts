@@ -1,4 +1,4 @@
-import { Err } from "@/domain/models"
+import { Err } from '@/domain/models'
 
 export interface Activation {
   activate: (params: Activation.Params) => Promise<Activation.Model>

@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil'
 import { PrivateRoute } from '../proxies'
 import { setCurrentAccountAdapter, getCurrentAccountAdapter } from '../../main/adapters'
 import { currentAccountState } from '../../presentation/components'
-import { makeLoginPage, makeHomePage, makeCreateAccountPage, makeActivationPage } from '../../main/factories/pages'
+import { makeLoginPage, makeHomePage, makeCreateAccountPage, makeActivationPage, makeUsersPage } from '../../main/factories/pages'
 
 const Router: React.FC = () => {
   const state = {
@@ -21,6 +21,7 @@ const Router: React.FC = () => {
             <Route path="/auth/register" exact component={makeCreateAccountPage} />
             <Route path="/auth/activation/:token" exact component={makeActivationPage} />
             <PrivateRoute path="/" exact component={makeHomePage} />
+            <PrivateRoute path="/users" exact component={makeUsersPage} />
           </Switch>
         </BrowserRouter>
       </div>
